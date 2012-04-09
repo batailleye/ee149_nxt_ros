@@ -1,0 +1,25 @@
+<launch>
+
+  <param name="robot_description" textfile="robot.urdf"/>
+
+  <node pkg="nxt_ros" type="joint_states_aggregator.py" name="js_agg" output="screen" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param name="publish_frequency" value="100.0"/>
+  </node>
+
+  <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true">
+    <rosparam command="load" file="$(find nxt_terminator)/robot.yaml" />    
+  </node>	 
+
+
+  <group ns="base_parameters">
+    <param name="r_wheel_joint" value="r_wheel_joint"/>
+    <param name="l_wheel_joint" value="l_wheel_joint"/>
+    <param name="wheel_radius" value="0.022"/>
+    <param name="wheel_basis" value="0.055"/>
+    <param name="vel_to_eff" value="0.5"/>
+  </group>
+
+ </launch>
+
+
